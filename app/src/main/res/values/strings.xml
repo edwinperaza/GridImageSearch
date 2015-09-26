@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Grid Image Search</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_search">Enter search query...</string>
+    <string name="text_search">Android Logo</string>
+    <string name="search_button">Search</string>
+    <string name="title_activity_image_display">Image Display</string>
+</resources>
