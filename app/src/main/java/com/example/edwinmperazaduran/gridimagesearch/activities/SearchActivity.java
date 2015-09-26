@@ -10,11 +10,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.edwinmperazaduran.gridimagesearch.R;
 import com.example.edwinmperazaduran.gridimagesearch.adapters.ImageResultArrayAdapter;
 import com.example.edwinmperazaduran.gridimagesearch.models.ImageResult;
-import com.loopj.android.http.AsyncHttpClient;
+import com.example.edwinmperazaduran.gridimagesearch.net.SearchClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     Button btnSearch;
     ArrayList<ImageResult> imageResults;
     ImageResultArrayAdapter imageAdapter;
+    SearchClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,8 @@ public class SearchActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.miAdvancedSearch) {
+
             return true;
         }
 
@@ -85,20 +88,20 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onImageSearch(View view) {
+        client = new SearchClient();
         String query = etQuery.getText().toString();
-        //Toast.makeText(this, "Searching for "+ query, Toast.LENGTH_LONG ).show();
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get("https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&q=" + query, new JsonHttpResponseHandler(){
+        client.getSearch(query, this, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        JSONArray imageJsonResults;
                         try {
-                            imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
-                            imageAdapter.clear();
-                            imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
-                            //imageAdapter.notifyDataSetChanged();
-                            //Log.d("DEBUUUUG: ", imageJsonResults.toString());
-                        }catch (JSONException e) {
+                            JSONArray imageJsonResults;
+                            if (response != null) {
+                                imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
+                                imageAdapter.clear();
+                                imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), "Invalid data received", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
                     }
@@ -108,9 +111,6 @@ public class SearchActivity extends AppCompatActivity {
                         super.onFailure(statusCode, headers, responseString, throwable);
                     }
                 }
-
         );
-
-
     }
 }

@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SearchActivity">
 
-
-
     <item
-        android:id="@+id/miCompose"
+        android:id="@+id/miAdvancedSearch"
         android:icon="@drawable/ic_settings"
         app:showAsAction="ifRoom"
         android:title="Compose"
