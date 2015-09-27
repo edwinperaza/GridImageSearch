@@ -7,7 +7,7 @@ Time spent: 2 hours spent in total
 The following user stories must be completed:
 
  * [X] Required: User can enter a search query that will display a grid of image results from the Google Image API.
- * [ ] Required: User can click on "settings" which allows selection of advanced search options to filter results
+ * [X] Required: User can click on "settings" which allows selection of advanced search options to filter results
  * [ ] Required: User can configure advanced search filters such as: <br />
     - [ ] Required: Size (small, medium, large, extra-large)
     - [ ] Required: Color filter (black, blue, brown, gray, green, etc...)

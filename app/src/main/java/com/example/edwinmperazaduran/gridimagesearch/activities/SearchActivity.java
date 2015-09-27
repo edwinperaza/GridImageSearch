@@ -2,6 +2,7 @@ package com.example.edwinmperazaduran.gridimagesearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.edwinmperazaduran.gridimagesearch.Dialogs.ImageFilterDialog;
 import com.example.edwinmperazaduran.gridimagesearch.R;
 import com.example.edwinmperazaduran.gridimagesearch.adapters.ImageResultArrayAdapter;
 import com.example.edwinmperazaduran.gridimagesearch.helpers.EndlessScrollListener;
@@ -27,7 +29,8 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements
+        ImageFilterDialog.ImageFilterDialogListener{
 
     private static int MAX_PAGE = 8;
     EditText etQuery;
@@ -98,7 +101,9 @@ public class SearchActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.miAdvancedSearch) {
-
+            FragmentManager fm = getSupportFragmentManager();
+            ImageFilterDialog imageFilterDialog= ImageFilterDialog.newInstance("Prueba");
+            imageFilterDialog.show(fm,"fragment_image_filter");
             return true;
         }
 

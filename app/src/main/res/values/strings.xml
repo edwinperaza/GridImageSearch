@@ -7,4 +7,10 @@
     <string name="text_search">Android Logo</string>
     <string name="search_button">Search</string>
     <string name="title_activity_image_display">Image Display</string>
+    <string name="img_size">Image Size</string>
+    <string name="img_color">Color Filter</string>
+    <string name="img_type">Image Type</string>
+    <string name="img_site">Site Filter</string>
+    <string name="save">Save</string>
+    <string name="hint_img_site">Enter website</string>
 </resources>
