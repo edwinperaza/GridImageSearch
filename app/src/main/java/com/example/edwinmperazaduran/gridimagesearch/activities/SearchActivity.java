@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.edwinmperazaduran.gridimagesearch.R;
 import com.example.edwinmperazaduran.gridimagesearch.adapters.ImageResultArrayAdapter;
+import com.example.edwinmperazaduran.gridimagesearch.helpers.EndlessScrollListener;
 import com.example.edwinmperazaduran.gridimagesearch.models.ImageResult;
 import com.example.edwinmperazaduran.gridimagesearch.net.SearchClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -28,33 +29,38 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private static int MAX_PAGE = 8;
     EditText etQuery;
     GridView gvResults;
     Button btnSearch;
     ArrayList<ImageResult> imageResults;
     ImageResultArrayAdapter imageAdapter;
     SearchClient client;
+    int startPage = 0;
+    String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setupViews();
-
     }
 
     public void setupViews(){
         etQuery = (EditText) findViewById(R.id.etQuery);
         gvResults = (GridView) findViewById(R.id.gvResults);
         btnSearch = (Button) findViewById(R.id.btnSearch);
-        imageResults = new ArrayList<>();
-        imageAdapter = new ImageResultArrayAdapter(this, imageResults);
-        gvResults.setAdapter(imageAdapter);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onImageSearch(startPage);
+            }
+        });
 
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Intent i = new Intent(getApplicationContext(), ImageDisplayActivity.class);
                 ImageResult imageResult = imageResults.get(position);
                 i.putExtra("result", imageResult);
@@ -62,6 +68,18 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                if (page < MAX_PAGE) {
+                    onImageSearch(page - 1);
+                }
+            }
+        });
+
+        imageResults = new ArrayList<>();
+        imageAdapter = new ImageResultArrayAdapter(this, imageResults);
+        gvResults.setAdapter(imageAdapter);
     }
 
     @Override
@@ -87,17 +105,17 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onImageSearch(View view) {
+    public void onImageSearch(int start) {
         client = new SearchClient();
-        String query = etQuery.getText().toString();
-        client.getSearch(query, this, new JsonHttpResponseHandler() {
+        query = etQuery.getText().toString();
+        startPage = start;
+        client.getSearch(query, startPage, this, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
                             JSONArray imageJsonResults;
                             if (response != null) {
                                 imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
-                                imageAdapter.clear();
                                 imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
                             }
                         } catch (JSONException e) {

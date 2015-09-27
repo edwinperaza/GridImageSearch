@@ -15,8 +15,9 @@ The following user stories must be completed:
     - [ ] Required: Site (espn.com)
  * [ ] Required: Subsequent searches will have any filters applied to the search results
  * [X] Required: User can tap on any image in results to see the image full-screen
- * [ ] Required: User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
- * [ ] Required: The following advanced user stories are optional:
+ * [X] Required: User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
+
+The following advanced user stories are optional:
  * [ ] Advanced: Robust error handling, check if internet is available, handle error cases, network failures
  * [ ] Advanced: Use the ActionBar SearchView or custom layout as the query box instead of an EditText
  * [ ] Advanced: User can share an image to their friends or email it to themselves

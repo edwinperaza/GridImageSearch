@@ -21,9 +21,9 @@ public class SearchClient {
         return API_BASE_URL + relativeUrl;
     }
 
-    public void getSearch(final String query, Context context, JsonHttpResponseHandler handler ){
+    public void getSearch(final String query, int startPage, Context context, JsonHttpResponseHandler handler ){
         try {
-            String url = getApiUrl("?v=1.0&rsz=8&q=");
+            String url = getApiUrl("?v=1.0&rsz=8&start="+ startPage * 8 +"&q=");
             client.get(url + URLEncoder.encode(query,"utf-8"), handler);
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
