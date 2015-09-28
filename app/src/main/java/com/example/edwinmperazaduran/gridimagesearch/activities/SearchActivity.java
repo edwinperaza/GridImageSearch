@@ -17,6 +17,7 @@ import com.example.edwinmperazaduran.gridimagesearch.Dialogs.ImageFilterDialog;
 import com.example.edwinmperazaduran.gridimagesearch.R;
 import com.example.edwinmperazaduran.gridimagesearch.adapters.ImageResultArrayAdapter;
 import com.example.edwinmperazaduran.gridimagesearch.helpers.EndlessScrollListener;
+import com.example.edwinmperazaduran.gridimagesearch.models.ImageFilter;
 import com.example.edwinmperazaduran.gridimagesearch.models.ImageResult;
 import com.example.edwinmperazaduran.gridimagesearch.net.SearchClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -41,6 +42,7 @@ public class SearchActivity extends AppCompatActivity implements
     SearchClient client;
     int startPage = 0;
     String query;
+    ImageFilter imageFilter = new ImageFilter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class SearchActivity extends AppCompatActivity implements
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onImageSearch(startPage);
+                onImageSearch(0);
             }
         });
 
@@ -102,8 +104,8 @@ public class SearchActivity extends AppCompatActivity implements
         //noinspection SimplifiableIfStatement
         if (id == R.id.miAdvancedSearch) {
             FragmentManager fm = getSupportFragmentManager();
-            ImageFilterDialog imageFilterDialog= ImageFilterDialog.newInstance("Prueba");
-            imageFilterDialog.show(fm,"fragment_image_filter");
+            ImageFilterDialog imageFilterDialog= ImageFilterDialog.newInstance("Prueba", imageFilter);
+            imageFilterDialog.show(fm, "fragment_image_filter");
             return true;
         }
 
@@ -114,26 +116,41 @@ public class SearchActivity extends AppCompatActivity implements
         client = new SearchClient();
         query = etQuery.getText().toString();
         startPage = start;
-        client.getSearch(query, startPage, this, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            JSONArray imageJsonResults;
-                            if (response != null) {
-                                imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
-                                imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
+        if (startPage == 0)
+            imageAdapter.clear();
+
+        if (!query.equals(""))
+            client.getSearch(query, startPage, imageFilter, this, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                JSONArray imageJsonResults;
+                                if (response != null) {
+                                    imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
+                                    imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
+                                }
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(), "Invalid data received", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(), "Invalid data received", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
                         }
                     }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
-                    }
-                }
-        );
+            );
+        else{
+            Toast.makeText(this, "Please enter a valid search query", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    public void onFinishDialog(ImageFilter objFilter){
+        imageFilter = objFilter;
+
+        onImageSearch(0);
+    }
+
+
 }

@@ -2,18 +2,18 @@
 
 This is a Google Image Search app which allows a user to select search filters and paginate results infinitely.  
 
-Time spent: 2 hours spent in total
+Time spent: 16 hours spent in total
 
 The following user stories must be completed:
 
  * [X] Required: User can enter a search query that will display a grid of image results from the Google Image API.
  * [X] Required: User can click on "settings" which allows selection of advanced search options to filter results
- * [ ] Required: User can configure advanced search filters such as: <br />
-    - [ ] Required: Size (small, medium, large, extra-large)
-    - [ ] Required: Color filter (black, blue, brown, gray, green, etc...)
-    - [ ] Required: Type (faces, photo, clip art, line art)
-    - [ ] Required: Site (espn.com)
- * [ ] Required: Subsequent searches will have any filters applied to the search results
+ * [X] Required: User can configure advanced search filters such as: <br />
+    - [X] Required: Size (small, medium, large, extra-large)
+    - [X] Required: Color filter (black, blue, brown, gray, green, etc...)
+    - [X] Required: Type (faces, photo, clip art, line art)
+    - [X] Required: Site (espn.com)
+ * [X] Required: Subsequent searches will have any filters applied to the search results
  * [X] Required: User can tap on any image in results to see the image full-screen
  * [X] Required: User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
 
