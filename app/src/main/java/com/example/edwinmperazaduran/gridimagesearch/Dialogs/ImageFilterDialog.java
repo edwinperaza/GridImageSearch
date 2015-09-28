@@ -60,23 +60,29 @@ public class ImageFilterDialog extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_image_filter, container);
+
         sp_imgsize = (Spinner) view.findViewById(R.id.sp_imgsize);
         sp_imgcolor = (Spinner) view.findViewById(R.id.sp_imgcolor);
         sp_img_type = (Spinner) view.findViewById(R.id.sp_img_type);
         et_img_site = (EditText) view.findViewById(R.id.et_img_site);
         btn_save_filter = (Button) view.findViewById(R.id.btn_save_filter);
-        //validar que exista
-        imageFilter = (ImageFilter) getArguments().getSerializable("imageFilter");
+
+        if (getArguments().getSerializable("imageFilter") != null) {
+            imageFilter = (ImageFilter) getArguments().getSerializable("imageFilter");
+        }
+
         setupSpAdapter(view);
 
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         btn_save_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finishFilter(v);
             }
         });
+
         return view;
     }
 
@@ -100,18 +106,14 @@ public class ImageFilterDialog extends DialogFragment{
 
         ArrayAdapter<CharSequence> adaptercolor = ArrayAdapter.createFromResource(view.getContext(),
                 R.array.sp_img_color, android.R.layout.simple_spinner_item);
-        //adaptercolor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_imgcolor.setAdapter(adaptercolor);
-
 
         ArrayAdapter<CharSequence> adaptersize = ArrayAdapter.createFromResource(view.getContext(),
                 R.array.sp_img_sz, android.R.layout.simple_spinner_item);
-        //adaptersize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_imgsize.setAdapter(adaptersize);
 
         ArrayAdapter<CharSequence> adaptertype = ArrayAdapter.createFromResource(view.getContext(),
                 R.array.sp_img_type, android.R.layout.simple_spinner_item);
-        //adaptertype.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_img_type.setAdapter(adaptertype);
 
         if (imageFilter != null){

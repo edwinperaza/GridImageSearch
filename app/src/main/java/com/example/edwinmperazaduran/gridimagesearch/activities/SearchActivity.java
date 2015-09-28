@@ -1,6 +1,9 @@
 package com.example.edwinmperazaduran.gridimagesearch.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -113,36 +116,41 @@ public class SearchActivity extends AppCompatActivity implements
     }
 
     public void onImageSearch(int start) {
-        client = new SearchClient();
-        query = etQuery.getText().toString();
-        startPage = start;
-        if (startPage == 0)
-            imageAdapter.clear();
+        if (isNetworkAvailable()) {
 
-        if (!query.equals(""))
-            client.getSearch(query, startPage, imageFilter, this, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            try {
-                                JSONArray imageJsonResults;
-                                if (response != null) {
-                                    imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
-                                    imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
+            client = new SearchClient();
+            query = etQuery.getText().toString();
+            startPage = start;
+            if (startPage == 0)
+                imageAdapter.clear();
+
+            if (!query.equals(""))
+                client.getSearch(query, startPage, imageFilter, this, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                try {
+                                    JSONArray imageJsonResults;
+                                    if (response != null) {
+                                        imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
+                                        imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
+                                    }
+                                } catch (JSONException e) {
+                                    Toast.makeText(getApplicationContext(), "Invalid data received", Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                Toast.makeText(getApplicationContext(), "Invalid data received", Toast.LENGTH_SHORT).show();
-                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                super.onFailure(statusCode, headers, responseString, throwable);
                             }
                         }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                            super.onFailure(statusCode, headers, responseString, throwable);
-                        }
-                    }
-            );
-        else{
-            Toast.makeText(this, "Please enter a valid search query", Toast.LENGTH_SHORT).show();
+                );
+            else {
+                Toast.makeText(this, "Please enter a valid search query", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this,"No Internet Connection", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -150,6 +158,12 @@ public class SearchActivity extends AppCompatActivity implements
         imageFilter = objFilter;
 
         onImageSearch(0);
+    }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
 

@@ -45,7 +45,7 @@ public class SearchClient {
             client.get(url, handler);
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
-            Toast.makeText(context,"Error getSearch", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Search not found", Toast.LENGTH_SHORT).show();
         }
     }
 }
