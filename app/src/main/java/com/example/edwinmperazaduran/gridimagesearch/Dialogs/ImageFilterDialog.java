@@ -1,6 +1,7 @@
 package com.example.edwinmperazaduran.gridimagesearch.Dialogs;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,11 +68,12 @@ public class ImageFilterDialog extends DialogFragment{
         sp_img_type = (Spinner) view.findViewById(R.id.sp_img_type);
         et_img_site = (EditText) view.findViewById(R.id.et_img_site);
         btn_save_filter = (Button) view.findViewById(R.id.btn_save_filter);
+        sp_imgsize.setFocusable(true);
 
         if (getArguments().getSerializable("imageFilter") != null) {
             imageFilter = (ImageFilter) getArguments().getSerializable("imageFilter");
         }
-
+        //hideSoftKeyboard(view);
         setupSpAdapter(view);
 
         getDialog().getWindow().setSoftInputMode(
@@ -79,6 +82,7 @@ public class ImageFilterDialog extends DialogFragment{
         btn_save_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(v);
                 finishFilter(v);
             }
         });
@@ -137,7 +141,15 @@ public class ImageFilterDialog extends DialogFragment{
             }
             et_img_site.setText(imageFilter.getSite());
         }
+    }
+
+    public static void hideSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
 
     }
+
+
+
 }

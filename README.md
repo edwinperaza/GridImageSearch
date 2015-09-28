@@ -18,7 +18,7 @@ The following user stories must be completed:
  * [X] Required: User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
 
 The following advanced user stories are optional:
- * [ ] Advanced: Robust error handling, check if internet is available, handle error cases, network failures
+ * [X] Advanced: Robust error handling, check if internet is available, handle error cases, network failures
  * [ ] Advanced: Use the ActionBar SearchView or custom layout as the query box instead of an EditText
  * [ ] Advanced: User can share an image to their friends or email it to themselves
  * [ ] Advanced: Replace Filter Settings Activity with a lightweight modal overlay

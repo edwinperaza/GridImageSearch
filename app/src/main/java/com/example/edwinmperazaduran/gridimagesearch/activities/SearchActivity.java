@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,6 +63,7 @@ public class SearchActivity extends AppCompatActivity implements
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(v);
                 onImageSearch(0);
             }
         });
@@ -116,8 +118,8 @@ public class SearchActivity extends AppCompatActivity implements
     }
 
     public void onImageSearch(int start) {
-        if (isNetworkAvailable()) {
 
+        if (isNetworkAvailable()) {
             client = new SearchClient();
             query = etQuery.getText().toString();
             startPage = start;
@@ -155,15 +157,22 @@ public class SearchActivity extends AppCompatActivity implements
     }
 
     public void onFinishDialog(ImageFilter objFilter){
-        imageFilter = objFilter;
 
+        imageFilter = objFilter;
         onImageSearch(0);
     }
 
-    private Boolean isNetworkAvailable() {
+    public Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public static void hideSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+
     }
 
 
