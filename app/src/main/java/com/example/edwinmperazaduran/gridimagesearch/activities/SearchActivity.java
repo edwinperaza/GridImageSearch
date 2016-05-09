@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -133,7 +134,9 @@ public class SearchActivity extends AppCompatActivity implements
                                 try {
                                     JSONArray imageJsonResults;
                                     if (response != null) {
-                                        imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
+                                        Log.e("JSON Response: ", response.toString());
+                                        imageJsonResults = response.getJSONArray("items");
+                                        Log.e("JSON","AQUI");
                                         imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
                                     }
                                 } catch (JSONException e) {

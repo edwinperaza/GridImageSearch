@@ -24,9 +24,9 @@ public class ImageResult implements Serializable {
 
     public ImageResult(JSONObject json){
         try {
-            this.fullUrl = json.getString("url");
-            this.thumbUrl = json.getString("tbUrl");
+            this.fullUrl = json.getString("link");
             this.title = json.getString("title");
+            this.thumbUrl = json.getJSONObject("image").getString("thumbnailLink");
         }catch (JSONException e){
             e.printStackTrace();
         }
