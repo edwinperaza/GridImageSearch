@@ -38,14 +38,14 @@ import cz.msebera.android.httpclient.Header;
 public class SearchActivity extends AppCompatActivity implements
         ImageFilterDialog.ImageFilterDialogListener{
 
-    private static int MAX_PAGE = 8;
+    private static int MAX_PAGE = 10;
     EditText etQuery;
     GridView gvResults;
     Button btnSearch;
     ArrayList<ImageResult> imageResults;
     ImageResultArrayAdapter imageAdapter;
     SearchClient client;
-    int startPage = 0;
+    int startPage = 1;
     String query;
     ImageFilter imageFilter = new ImageFilter();
 
@@ -65,7 +65,7 @@ public class SearchActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 hideSoftKeyboard(v);
-                onImageSearch(0);
+                onImageSearch(1);
             }
         });
 
@@ -82,8 +82,10 @@ public class SearchActivity extends AppCompatActivity implements
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                if (page < MAX_PAGE) {
-                    onImageSearch(page - 1);
+                Log.e("TotalItemsCount", String.valueOf(totalItemsCount));
+                Log.e("Page", String.valueOf(page));
+                if (page <= MAX_PAGE) {
+                    onImageSearch((10*(page-1)) + 1);
                 }
             }
         });
@@ -124,7 +126,7 @@ public class SearchActivity extends AppCompatActivity implements
             client = new SearchClient();
             query = etQuery.getText().toString();
             startPage = start;
-            if (startPage == 0)
+            if (startPage == 1)
                 imageAdapter.clear();
 
             if (!query.equals(""))
@@ -134,9 +136,7 @@ public class SearchActivity extends AppCompatActivity implements
                                 try {
                                     JSONArray imageJsonResults;
                                     if (response != null) {
-                                        Log.e("JSON Response: ", response.toString());
                                         imageJsonResults = response.getJSONArray("items");
-                                        Log.e("JSON","AQUI");
                                         imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
                                     }
                                 } catch (JSONException e) {
@@ -162,7 +162,7 @@ public class SearchActivity extends AppCompatActivity implements
     public void onFinishDialog(ImageFilter objFilter){
 
         imageFilter = objFilter;
-        onImageSearch(0);
+        onImageSearch(1);
     }
 
     public Boolean isNetworkAvailable() {

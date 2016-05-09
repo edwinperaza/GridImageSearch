@@ -27,24 +27,27 @@ public class SearchClient {
     public String getFilterUrl (ImageFilter imageFilter){
         String filterUrl = "";
             if (imageFilter.getColor() != null && !imageFilter.getColor().equals("Any")){
-                filterUrl += "&imgcolor=" + imageFilter.getColor();
+                filterUrl += "&imgDominantColor=" + imageFilter.getColor();
             }
             if (imageFilter.getSize() != null && !imageFilter.getSize().equals("Any")){
-                filterUrl += "&imgsz=" + imageFilter.getSize();
+                filterUrl += "&imgSize=" + imageFilter.getSize();
             }
             if (imageFilter.getType() != null && !imageFilter.getType().equals("Any")){
-                filterUrl += "&imgtype=" + imageFilter.getType();
+                filterUrl += "&imgType=" + imageFilter.getType();
             }
             if (imageFilter.getSite() != null && !imageFilter.getSite().equals("")){
-                filterUrl += "&as_sitesearch=" + imageFilter.getSite();
+                filterUrl += "&siteSearch=" + imageFilter.getSite();
             }
 
         return filterUrl;
     }
     public void getSearch(final String query, int startPage, ImageFilter imageFilter, Context context, JsonHttpResponseHandler handler ){
         try {
-            String url = getApiUrl("q="+URLEncoder.encode(query,"utf-8")+"&cx="+CX_KEY+"&searchType=image&key="+API_KEY);
-            Log.e("URL A BUSCAR: ", url);
+            String url = getApiUrl("q="+URLEncoder.encode(query,"utf-8")+"&start="+startPage+
+                    "&cx="+CX_KEY+"&searchType=image"+getFilterUrl(imageFilter)+"&key="+API_KEY);
+            Log.e("URL:", url);
+//            String url = getApiUrl("q="+URLEncoder.encode(query,"utf-8")+"&start="+startPage+
+//                    "&cx="+CX_KEY+"&searchType=image&key="+API_KEY);
             client.get(url, handler);
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
