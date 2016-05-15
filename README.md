@@ -36,8 +36,9 @@ You can enter a search query that will display a grid of image results from the 
   * For [Custom Search Engine](https://cse.google.com/cse/) (FREE) users, the API provides 100 search queries per day for free. If you need more, you may sign up for billing in the Developers Console. Additional requests cost $5 per 1000 queries, up to 10k queries per day.
   * For [Google Site Search](https://www.google.com/work/search/products/gss.html) (Paid) users, usage limits and quotas, please check [pricing options](https://www.google.com/work/search/products/gss.html#pricing_content).
    
-
 ## Walkthrough
+![Video Walkthrough](gridImageSearch.gif)
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## License
  * [Apache Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
@@ -45,4 +46,3 @@ You can enter a search query that will display a grid of image results from the 
 ## Acknowledgements
  * [Google Custom Search](https://developers.google.com/custom-search/)
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
