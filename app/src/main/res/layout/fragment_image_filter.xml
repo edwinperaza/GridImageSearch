@@ -1,100 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    >
+    android:layout_marginLeft="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/img_size"
         android:id="@+id/tv_img_size"
-        android:layout_alignBottom="@+id/sp_imgsize"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical"
+        android:layout_alignBottom="@+id/sp_imgsize"
         android:textSize="18sp"
         android:paddingBottom="10dp"
-        android:layout_toLeftOf="@+id/sp_imgsize"
-        android:layout_toStartOf="@+id/sp_imgsize" />
+        android:minHeight="45dp"
+        android:layout_toLeftOf="@+id/sp_imgcolor"
+        android:layout_toStartOf="@+id/sp_imgcolor"
+        android:gravity="bottom" />
 
     <Spinner
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sp_imgsize"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/tv_imgcolor"
+        android:layout_toRightOf="@+id/tv_img_size"
+        android:layout_toEndOf="@+id/tv_img_size"
         android:spinnerMode="dropdown"
         android:textSize="18sp"
-        android:minHeight="45dp"
         android:paddingBottom="10dp"
-        android:layout_toRightOf="@+id/tv_imgcolor" />
+        android:minHeight="45dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/img_color"
         android:id="@+id/tv_imgcolor"
         android:layout_below="@+id/tv_img_size"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/sp_imgcolor"
-        android:layout_toLeftOf="@+id/sp_imgcolor"
-        android:layout_toStartOf="@+id/sp_imgcolor"
-        android:gravity="center_vertical"
         android:textSize="18sp"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="10dp"
+        android:minHeight="45dp"
+        android:gravity="bottom" />
 
     <Spinner
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sp_imgcolor"
         android:layout_below="@+id/sp_imgsize"
-        android:layout_toEndOf="@+id/tv_imgtype"
+        android:layout_toRightOf="@+id/tv_imgcolor"
+        android:layout_toEndOf="@+id/tv_imgcolor"
         android:spinnerMode="dropdown"
         android:textSize="18sp"
         android:paddingBottom="10dp"
-        android:layout_toRightOf="@+id/tv_imgtype"
-        android:minHeight="45dp" />
+        android:minHeight="45dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/img_type"
-        android:id="@+id/tv_imgtype"
+        android:id="@+id/tv_img_type"
         android:layout_below="@+id/tv_imgcolor"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/sp_img_type"
-        android:layout_toStartOf="@+id/btn_save_filter"
-        android:gravity="center_vertical"
+        android:layout_toLeftOf="@+id/sp_imgcolor"
+        android:layout_toStartOf="@+id/sp_imgcolor"
         android:textSize="18sp"
         android:paddingBottom="10dp"
-        android:layout_toLeftOf="@+id/btn_save_filter" />
+        android:minHeight="45dp"
+        android:gravity="bottom" />
 
     <Spinner
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sp_img_type"
         android:layout_below="@+id/sp_imgcolor"
-        android:layout_toEndOf="@+id/tv_imgtype"
+        android:layout_toRightOf="@+id/tv_img_type"
+        android:layout_toEndOf="@+id/tv_img_type"
         android:spinnerMode="dropdown"
         android:textSize="18sp"
         android:paddingBottom="10dp"
-        android:layout_toRightOf="@+id/tv_imgtype"
-        android:minHeight="45dp" />
+        android:minHeight="45dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/img_site"
         android:id="@+id/tv_imgsite"
-        android:layout_below="@+id/tv_imgtype"
+        android:layout_below="@+id/tv_img_type"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/sp_img_type"
         android:layout_toStartOf="@+id/sp_img_type"
-        android:gravity="center_vertical"
+        android:gravity="bottom"
         android:layout_alignBottom="@+id/et_img_site"
         android:textSize="18sp"
         android:paddingBottom="10dp" />

@@ -2,34 +2,32 @@
 <resources>
     <string-array name="sp_img_color">
         <item>Any</item>
-        <item>black</item>
-        <item>blue</item>
-        <item>brown</item>
-        <item>gray</item>
-        <item>green</item>
-        <item>orange</item>
-        <item>pink</item>
-        <item>purple</item>
-        <item>red</item>
-        <item>teal</item>
-        <item>white</item>
-        <item>yellow</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
     </string-array>
 
     <string-array name="sp_img_type">
         <item>Any</item>
-        <item>face</item>
-        <item>photo</item>
-        <item>clipart</item>
-        <item>lineart</item>
+        <item>Face</item>
+        <item>Photo</item>
+        <item>Clipart</item>
+        <item>Lineart</item>
     </string-array>
 
     <string-array name="sp_img_sz">
         <item>Any</item>
-        <item>icon</item>
-        <item>small</item>
-        <item>xxlarge</item>
-        <item>huge</item>
+        <item>Icon</item>
+        <item>Small</item>
+        <item>Xxlarge</item>
+        <item>Huge</item>
     </string-array>
-
 </resources>

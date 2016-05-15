@@ -1,9 +1,9 @@
 package com.example.edwinmperazaduran.gridimagesearch.net;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.example.edwinmperazaduran.gridimagesearch.R;
 import com.example.edwinmperazaduran.gridimagesearch.models.ImageFilter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -45,13 +45,10 @@ public class SearchClient {
         try {
             String url = getApiUrl("q="+URLEncoder.encode(query,"utf-8")+"&start="+startPage+
                     "&cx="+CX_KEY+"&searchType=image"+getFilterUrl(imageFilter)+"&key="+API_KEY);
-            Log.e("URL:", url);
-//            String url = getApiUrl("q="+URLEncoder.encode(query,"utf-8")+"&start="+startPage+
-//                    "&cx="+CX_KEY+"&searchType=image&key="+API_KEY);
             client.get(url, handler);
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
-            Toast.makeText(context,"Search not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.search_not_found, Toast.LENGTH_SHORT).show();
         }
     }
 }

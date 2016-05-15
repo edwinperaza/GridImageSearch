@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +52,7 @@ public class SearchActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         setupViews();
     }
 
@@ -82,8 +82,6 @@ public class SearchActivity extends AppCompatActivity implements
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                Log.e("TotalItemsCount", String.valueOf(totalItemsCount));
-                Log.e("Page", String.valueOf(page));
                 if (page <= MAX_PAGE) {
                     onImageSearch((10*(page-1)) + 1);
                 }
@@ -97,26 +95,20 @@ public class SearchActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.miAdvancedSearch) {
             FragmentManager fm = getSupportFragmentManager();
-            ImageFilterDialog imageFilterDialog= ImageFilterDialog.newInstance("Prueba", imageFilter);
+            ImageFilterDialog imageFilterDialog= ImageFilterDialog.newInstance(imageFilter);
             imageFilterDialog.show(fm, "fragment_image_filter");
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -140,7 +132,7 @@ public class SearchActivity extends AppCompatActivity implements
                                         imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
                                     }
                                 } catch (JSONException e) {
-                                    Toast.makeText(getApplicationContext(), "Invalid data received", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.invalid_data, Toast.LENGTH_SHORT).show();
                                     e.printStackTrace();
                                 }
                             }
@@ -152,15 +144,14 @@ public class SearchActivity extends AppCompatActivity implements
                         }
                 );
             else {
-                Toast.makeText(this, "Please enter a valid search query", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.invalid_query, Toast.LENGTH_SHORT).show();
             }
         }else{
-            Toast.makeText(this,"No Internet Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onFinishDialog(ImageFilter objFilter){
-
         imageFilter = objFilter;
         onImageSearch(1);
     }
@@ -174,9 +165,5 @@ public class SearchActivity extends AppCompatActivity implements
     public static void hideSoftKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
-
     }
-
-
 }

@@ -22,6 +22,12 @@ public class ImageFilter implements Serializable {
         this.site = site;
     }
 
+    public boolean noSelections(){
+        if (size.equals("Any") && color.equals("Any") && type.equals("Any") && site.equals("")) {
+            return true;
+        }
+        return false;
+    }
 
     public void setSize(String size) {
         this.size = size;
