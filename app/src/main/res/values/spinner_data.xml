@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sp_img_color">
+        <item>Any</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="sp_img_type">
+        <item>Any</item>
+        <item>Face</item>
+        <item>Photo</item>
+        <item>Clipart</item>
+        <item>Lineart</item>
+    </string-array>
+
+    <string-array name="sp_img_sz">
+        <item>Any</item>
+        <item>Icon</item>
+        <item>Small</item>
+        <item>Xxlarge</item>
+        <item>Huge</item>
+    </string-array>
+</resources>

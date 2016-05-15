@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Grid Image Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_search">Enter search query…</string>
+    <string name="text_search">Android Logo</string>
+    <string name="search_button">Search</string>
+    <string name="search_not_found">Search not found</string>
+    <string name="title_activity_image_display">Image Display</string>
+    <string name="img_size">Image Size:</string>
+    <string name="img_color">Image Color:</string>
+    <string name="img_type">Image Type:</string>
+    <string name="img_site">Site Filter:</string>
+    <string name="save">Save</string>
+    <string name="hint_img_site">Enter website</string>
+    <string name="search_engine_id">AIzaSyC9qyat9G0tlHrmg8s_dAfT1q4irjIZTlE</string>
+    <string name="api_key">018166152475396321462:neztg-w1huk</string>
+    <string name="invalid_data">Invalid data received</string>
+    <string name="invalid_query">Please enter a valid search query</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="service_unavailable">Oops!!! Service unavailable. Try later!!!</string>
+</resources>

@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SearchActivity">
+
+    <item
+        android:id="@+id/miAdvancedSearch"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom"
+        android:title="Compose"
+        >
+    </item>
+
+</menu>
